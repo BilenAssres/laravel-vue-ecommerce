@@ -24,7 +24,7 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        $products = Product::with('images')->simplePaginate(50);
+        $products = Product::simplePaginate(30);
         $users = User::where('id', '!=', Auth::id())->simplePaginate(10);
         return view('admin.dashboard', compact('products', 'users'));
     }

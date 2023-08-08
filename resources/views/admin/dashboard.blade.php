@@ -1,7 +1,81 @@
 <x-app-layout>
 
     <div class="w-full mx-2 flex flex-col justify-center">
-        <div id="products" class="w-full flex justify-center"></div>
+        <div id="products" class="w-5/6 mx-auto flex flex-col justify-center">
+            <h2 class="text-center my-2">Product List</h2>
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            S/N
+                        </th>
+
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Product Name
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                               Product Seller
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                               Product Price
+                            </div>
+                        </th>
+                       
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                               Product Status
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Action
+                            </div>
+                        </th>
+                        
+                    </tr>
+                </thead>
+              
+                <tbody>
+                    @foreach ($products as $key => $product)
+                        <tr class="border-b bg-gray-800 border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ ++$key }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $product->product_name }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $product->product_seller }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $product->product_price }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $product->product_status }}
+                            </td>
+
+                            <td class="px-6 py-4 jsutify-evenly">
+                                <a href="{{route('admin.product.edit',['product'=>$product->id])}}"
+                                    class="font-medium text-blue-600  hover:underline mx-2">Edit</a>
+                                    <a href="{{route('admin.product.destroy',['product'=>$product->id])}}"
+                                    class="font-medium text-red-600  hover:underline mx-2">Delete</a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="float-right flex justify-between w-1/3 gap-x-2 mt-3">
+
+                {{$products->links()}}
+            </div>
+        </div>
         <div id="users" class="w-full flex justify-center">
             @if (auth()->user()->is_admin)
 
